@@ -1,0 +1,50 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Tiny URL";
+}
+
+<div class="container text-center mt-5">
+    <h2 class="text-primary mb-4">URL REGISTRATION</h2>
+
+    <!-- URL Input -->
+    <form method="post" asp-page-handler="GenerateUrl" class="mb-4">
+        <div class="input-group shadow">
+            <input asp-for="OriginalUrl" class="form-control" placeholder="Enter URL to shorten" required />
+            <div class="input-group-text">
+                <input asp-for="NewUrl.IsPrivate" type="checkbox" /> IsPrivate
+            </div>
+        </div>
+        <button type="submit" class="btn btn-lg mt-3" style="background-color:#007bff; color:white;">
+            Generate
+        </button>
+    </form>
+
+    <!-- Public URLs -->
+    <h4 class="text-primary mt-5">Public URLs</h4>
+    <input type="text" class="form-control mb-3" placeholder="Search URLs..."
+           asp-for="SearchTerm" oninput="this.form.submit()" />
+
+    <div class="list-group">
+        @foreach (var url in Model.FilteredUrls)
+        {
+            <div class="list-group-item d-flex justify-content-between align-items-center shadow-sm mb-2">
+                <div class="text-start">
+                    <a href="@url.ShortUrl" target="_blank" class="fw-bold text-primary">@url.ShortUrl</a><br />
+                    <small class="text-muted">@url.OriginalUrl</small>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <button type="button" class="btn btn-sm btn-outline-primary me-2"
+                            onclick="navigator.clipboard.writeText('@url.ShortUrl');alert('Copied!');">
+                        Copy
+                    </button>
+                    <span class="badge bg-light text-dark me-2">@url.Clicks clicks</span>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@url.Id">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>
