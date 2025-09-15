@@ -7,10 +7,10 @@
 <div class="container text-center mt-5">
     <h2 class="text-primary mb-4">URL REGISTRATION</h2>
 
-    <!-- URL Input -->
+
     <form method="post" asp-page-handler="GenerateUrl" class="mb-4">
         <div class="input-group shadow">
-            <input asp-for="OriginalUrl" class="form-control" placeholder="Enter URL to shorten" required />
+            <input asp-for="OriginalUrl" class="form-control" placeholder="Enter URL" required />
             <div class="input-group-text">
                 <input asp-for="NewUrl.IsPrivate" type="checkbox" /> IsPrivate
             </div>
@@ -20,8 +20,8 @@
         </button>
     </form>
 
-    <!-- Public URLs -->
-    <h4 class="text-primary mt-5">Public URLs</h4>
+
+    <h4 class="text-primary mt-5">URL LIST</h4>
     <input type="text" class="form-control mb-3" placeholder="Search URLs..."
            asp-for="SearchTerm" oninput="this.form.submit()" />
 
