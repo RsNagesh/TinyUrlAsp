@@ -36,10 +36,8 @@ public class IndexModel : PageModel
     {
         try
         {
-            // Fetch all URLs
             var urls = await _httpClient.GetFromJsonAsync<List<UrlDto>>("urls") ?? new();
             
-            // Apply search filter if any
             if (!string.IsNullOrWhiteSpace(SearchTerm))
             {
                 FilteredUrls = urls
@@ -77,7 +75,6 @@ public class IndexModel : PageModel
         }
         else
         {
-            // handle error
             ModelState.AddModelError(string.Empty, "Error generating short URL");
         }
 
